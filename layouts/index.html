@@ -16,8 +16,10 @@
   {{ if gt (len (where .Data.Pages "Type" "work")) 0 }}{{ partial "work.html" . }}{{ end }}
 </div>
 
+{{ if $config.contact }}
 <div class="main-content">
   {{ partial "contact.html" $config.contact }}
 </div>
+{{ end }}
 
 {{ partial "footer-scripts.html" . }}

@@ -1,7 +1,7 @@
-{{ $newconfig := .Site.Data.config }}
-{{ $sidebar := $newconfig.sidebar }}
+{{ $config := .Site.Data.config }}
+{{ $sidebar := $config.sidebar }}
 {{ $social := $sidebar.social }}
-{{ $socialfas := $sidebar.socialfas}}
+{{ $contact := $config.contact }}
 
 <section id="sidebar" class="sidebar d-flex align-items-center p-5">
   <div class="main-info">
@@ -12,7 +12,6 @@
     <p class="text-muted">{{ $sidebar.description }}</p>
 
     <div class="social my-4">
-
       {{ range $service, $value := $social }}
         {{ range $icon_type, $hyperlink := $value }}
           <a target="_blank" href="{{ $hyperlink }}" rel="me">
@@ -23,17 +22,11 @@
           </a>
         {{ end }}
       {{ end }}
-
-      {{ range $key, $value := $socialfas }}
-        <a target="_blank" href="{{ $value }}">
-          <i class="fas fa-{{ $key }}"></i>
-        </a>
-      {{ end }}
-
     </div>
 
-    <a href="#contact" class="btn btn-dark btn-lg">Contact</a>
-
+    {{ if $contact }}
+      <a href="#contact" class="btn btn-dark btn-lg">Contact</a>
+    {{ end }}
 
   </div>
 </section>

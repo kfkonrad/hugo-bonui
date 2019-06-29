@@ -1,11 +1,11 @@
-{{ $config := .Site.Data.config }}
+{{ $config := . }}
 
 <section id="contact" class="bg-light d-flex align-items-center" style="height: 100vh;">
   <div class="container">
       <h2 class="heading mb-3">Contact</h2>
 
       <div class="text-success my-3">
-        {{ $config.message }}
+        {{ $config.message_on_success }}
       </div>
 
       <form action="https://formspree.io/{{ $config.email }}" method="post">

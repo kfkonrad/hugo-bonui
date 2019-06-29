@@ -1,20 +1,23 @@
+{{ $config := .Site.Data.config }}
+
 {{ partial "header.html" . }}
 {{ partial "sidebar.html" . }}
 
 <div class="main-content">
-	{{ if .Site.Data.skills }}{{ partial "skills.html" . }}{{ end }}
-	{{ if .Site.Data.experience }}{{ partial "experience.html" . }}{{ end }}
-	{{ if .Site.Data.services }}{{ partial "services.html" . }}{{ end }}
+  {{ range $key, $value := $config.contents }}
+    {{ if eq $value.type "progressbars" }} {{ partial "progressbar.html" $value }} {{ end }}
+    {{ if eq $value.type "timeline" }}     {{ partial "timeline.html" $value }}    {{ end }}
+    {{ if eq $value.type "cards" }}        {{ partial "cards.html" $value }}       {{ end }}
+  {{ end }}
 </div>
 
 <div style="z-index: 4; position: relative;">
-	{{ if gt (len (where .Data.Pages "Type" "blog")) 0 }}{{ partial "blog.html" . }}{{ end }}
-	{{ if gt (len (where .Data.Pages "Type" "work")) 0 }}{{ partial "work.html" . }}{{ end }}
+  {{ if gt (len (where .Data.Pages "Type" "blog")) 0 }}{{ partial "blog.html" . }}{{ end }}
+  {{ if gt (len (where .Data.Pages "Type" "work")) 0 }}{{ partial "work.html" . }}{{ end }}
 </div>
 
 <div class="main-content">
-	{{ partial "contact.html" . }}		
+  {{ partial "contact.html" $config.contact }}
 </div>
 
 {{ partial "footer-scripts.html" . }}
-	

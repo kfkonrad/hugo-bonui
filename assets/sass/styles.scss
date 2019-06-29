@@ -206,45 +206,51 @@ section{
   .heading{
     margin-bottom: 30px;
   }
-
-  &.yellow{
-    background-color: #ffd061;
+  @function mydarken($color) {
+    @return scale-color($color, $lightness: -40%);
+  }
+  &.yellow {
+    $yellow: #FFE862;
+    background-color: $yellow;
     color: #000 !important;
-
-    .progress .bg-blue{
-      background-color: #c19c43;
-    }
-  }
-  
-  &.voilet{
-    background-color: #4768FD;
-  }
-  
-  &.blue{
-    background-color: #cadfdf;
-  }
-
-  &.orange{
-    color: #fff;
-    background-color: #fb7833;
-  }
-
-  &.green{
-    background-color: #aaffa7;
-  }
-
-  &.skin{
-    background-color: #fdead2;
-  }
-
-  &.aqua{
-    background-color: #00fefe;
+    .progress .bg-bar {
+      background-color: mydarken($yellow);
+  }}
+  &.blue {
+    $blue: #4E8BCC;
+    background-color: $blue;
     color: #000 !important;
-  }
-
-  &.pink{
-    background-color: #fff1f1;
-  }
+    .progress .bg-bar {
+      background-color: mydarken($blue);
+  }}
+  &.red {
+    $red: #E0325F;
+    background-color: $red;
+    color: #000 !important;
+    .progress .bg-bar {
+      background-color: mydarken($red);
+  }}
+  &.green {
+    $green: #6BE07B;
+    background-color: $green;
+    color: #000 !important;
+    .progress .bg-bar {
+      background-color: mydarken($green);
+  }}
+  &.orange {
+    $orange: #FFAD52;
+    background-color: $orange;
+    color: #000 !important;
+    .progress .bg-bar {
+      background-color: mydarken($orange);
+  }}
+  &.purple {
+    $purple: #9E8BE0;
+    background-color: $purple;
+    color: #000 !important;
+    .progress .bg-bar {
+      background-color: mydarken($purple);
+  }}
 }
 
 // styles for progress bar

@@ -1,15 +1,21 @@
-{{ $experience := .Site.Data.experience }}
+{{ $root := . }}
 
-<section id="experience" class="green">
-  <h2 class="heading">{{ $experience.title }}</h2>
+<!--
+  <section id="experience" class="{{ $root.color }}">
+-->
+<section class="{{ $root.color }}">
+  <h2 class="heading">{{ $root.title }}</h2>
   <div id="timeline">
-    {{ range $index, $element := $experience.experience }}
+    {{ range $index, $element := $root.entries }}
     <div class="timeline-item clearfix">
       <div class="timeline-icon"></div>
       
       <div class="timeline-content {{ if eq (mod $index 2) 0 }} right {{ end }}">
+        {{ if $element.subtitle }}
+          <h4>{{ $element.subtitle }}</h4>
+        {{ end }}
         <span class="date">{{ $element.timeperiod }}</span>
-        <h6 class="h3 my-2">{{ $element.company }}</h6>
+        <h6 class="h3 my-2">{{ $element.title }}</h6>
         {{ $website := $element.website }}
         {{ if $website }}
         <a target="_blank" href="{{ $website }}">

@@ -1,21 +1,27 @@
-{{ $sidebar := .Site.Data.sidebar }}
-{{ $social := .Site.Data.social }}
-{{ $socialfas := .Site.Data.socialfas}}
+{{ $newconfig := .Site.Data.config }}
+{{ $sidebar := $newconfig.sidebar }}
+{{ $social := $sidebar.social }}
+{{ $socialfas := $sidebar.socialfas}}
 
 <section id="sidebar" class="sidebar d-flex align-items-center p-5">
   <div class="main-info">
 
-    <img src="{{.Site.BaseURL}}images/{{ $sidebar.displayPicture }}" class="rounded-circle mb-3" width="160px">
+    <img src="{{ .Site.BaseURL }}images/{{ $sidebar.displayPicture }}" class="rounded-circle mb-3" width="160px">
 
     <h1 class="heading">{{ $sidebar.title }} <span class="highlight">{{ $sidebar.highlightedText }}</span></h1>
     <p class="text-muted">{{ $sidebar.description }}</p>
 
     <div class="social my-4">
 
-      {{ range $key, $value := $social }}
-        <a target="_blank" href="{{ $value }}" rel="me">
-          <i class="fab fa-{{ $key }}"></i>
-        </a>
+      {{ range $service, $value := $social }}
+        {{ range $icon_type, $hyperlink := $value }}
+          <a target="_blank" href="{{ $hyperlink }}" rel="me">
+            {{ if eq $icon_type "brand" }}  <i class="fab fa-{{ $service }}"></i>{{ end }}
+            {{ if eq $icon_type "solid" }}  <i class="fas fa-{{ $service }}"></i>{{ end }}
+            {{ if eq $icon_type "regular" }}<i class="far fa-{{ $service }}"></i>{{ end }}
+            {{ if eq $icon_type "light" }}  <i class="far fa-{{ $service }}"></i>{{ end }}
+          </a>
+        {{ end }}
       {{ end }}
 
       {{ range $key, $value := $socialfas }}

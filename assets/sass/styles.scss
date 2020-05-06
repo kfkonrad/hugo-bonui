@@ -1,19 +1,44 @@
-*{
-  // outline: 1px solid red;
-}
+{{ $config := . }}
 
-html{
+html {
   overflow-x: hidden;
   overflow-y: scroll; 
 }
 
-a{
-  &:hover{
+{{ if eq $config.darkmode true }}
+  $bg-def: #17151A;
+  $fg-def: #e0ebf4;
+  $bg-highlight: #4F4D52;
+  $fg-highlight: $bg-def;
+  $bg-progress: $fg-def;
+  $fg-social: $fg-def;
+  $bg-social: scale-color($fg-def, $lightness: -78%);
+  $bg-social-hover: scale-color($bg-social, $lightness: -20%);
+  $bg-contact: scale-color($bg-def, $lightness: +5%);
+{{ else }}
+  $bg-def: white;
+  $fg-def: black;
+  $bg-highlight: #ededed;
+  $fg-highlight: $fg-def;
+  $bg-progress: $bg-def;
+  $fg-social: $bg-def;
+  $bg-social: scale-color($fg-def, $lightness: +25%);
+  $bg-social-hover: scale-color($bg-social, $lightness: -25%);
+  $bg-contact: #f8f9fa;
+{{ end }}
+body {
+  background-color: $bg-def;
+  color: $fg-def;
+}
+
+a {
+  &:hover {
     text-decoration: none;
   }
 }
-.sidebar{
-	position: fixed;
+
+.sidebar {
+  position: fixed;
   left: 0px;
   top: 0px;
   
@@ -23,23 +48,20 @@ a{
   width: 40%;
   
   height: 100%;
-  
 
-  .main-info *{
+  .main-info * {
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateX(-40px);
 
-    &.bs{
+    &.bs {
       transform: translateX(0);
       opacity: 1;
     }
-
-
   }
 }
 
-.main-content{
+.main-content {
   position: relative;
   overflow: visible;
   width: 60%;
@@ -48,91 +70,64 @@ a{
   float: none;
   clear: none;
 
-  &:after{
+  &:after {
     position: absolute;
     content: '';
     top: 0; bottom: 0;
     left: 0; right: 0;
     transition: all 0.8s cubic-bezier(0.79, 0, 0.05, 0.83);;
-    background-color: #fff;
+    background-color: $bg-def;
   }
 
-  &.active{
-    &:after{
+  &.active {
+    &:after {
       position: absolute;
       content: '';
       top: 0; bottom: 0;
       left: 0; right: 0;
       transform: translateX(100%);
-      background-color: #fff;
+      background-color: $bg-def;
     }
   }
 }
 
 
 
-article{
-  font-size: 18px !important;
-  line-height: 1.8rem;
-  p{
-    color: rgba(0,0,0,0.8);
-  }
-
-  img{
-    max-width: 100%;
-  }
-
-  code{
-    background-color: #fbfbfb !important;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  mark{
-    background-color: white;
-    color: rgb(200,0,0);
-  }
-
-}
-
-.heading,
-h1,h2,h3,h4,h5,h6{
-
+.heading, h1, h2, h3, h4, h5, h6 {
 	font-family: 'Montserrat', sans-serif !important;
 	font-weight: 800;
 	text-transform: uppercase;
-	
 }
 
-.heading{
+.heading {
   font-size: 38px;
 }
 
-.highlight{
-	background-color: #ededed;
+.highlight {
+        color: $fg-highlight;
+	background-color: $bg-highlight;
 	padding: 4px 8px;
 	/*display: inline-block;*/
 }
 
-.form-control{
+.form-control {
   border: none;
   background-color: #e8ebef !important; 
 }
 
-.primaryMenu{
+.primaryMenu {
   // margin-top: -90px;
   transform: translateY(-90px);
   transition: transform 0.3s ease;
   position: absolute;
   margin-left: 35px;
 
-  &.active{
+  &.active {
     transform: translateY(0px);
   }
 }
 
-.secondaryMenu{
+.secondaryMenu {
   position: absolute;
   widows: 100%;
   // margin-top: -90px;
@@ -142,68 +137,40 @@ h1,h2,h3,h4,h5,h6{
   z-index: 2;
   transition: transform 0.3s ease;
 
-  &.active{
+  &.active {
     // margin-top: 0px;
     transform: translateY(0px);
   }
 }
 
-// styles for buttons
-.btn{
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  
-  &.btn-primary{
-    background-color : #31E7B6;
-    border-color: #31E7B6;
-
-    &:hover{
-      background-color : #32d2a7;
-      border-color: #32d2a7;
-    }
-
-    &:active{
-      transform: scale(0.95);
-      background-color : #32d2a7;
-      border-color: #32d2a7;
-    }
-  }
-}
-
-.btn-dark-faded{
-  font-weight: 300;
-  font-family: 'Montserrat', sans-serif !important;
-  /*text-transform: uppercase;*/
-  background-color: rgba(0,0,0,0.07);
-  color: black;
-}
 // Styles for social icons
-.social{
-  &:hover{
-    a{
-      color: rgba(0,0,0,0.4);
-    }
-  }
-
-  a{
-    color: rgba(0,0,0,1);
+.social {
+  a {
+    color: $bg-social;
     font-size: 28px;
     margin-right: 12px;
     transition: all 0.3s ease;
-
-    &:hover{
-      color: rgba(0,0,0,1);
-      i{
-        transform: scale(1.3);
-      }
+    &:hover {
+      color: $bg-social-hover;
     }
   }
 }
 
-section{
+.btn-dark {
+  color: $fg-social;
+  background-color: $bg-social;
+  border-color: $bg-social;
+  &:hover {
+    color: $fg-social;
+    background-color: $bg-social-hover;
+    border-color: $bg-social-hover;
+  }
+}
+
+section {
   padding: 10%;
   
-  .heading{
+  .heading {
     margin-bottom: 30px;
   }
   @function mydarken($color) {
@@ -254,18 +221,16 @@ section{
 }
 
 // styles for progress bar
-.progress{
+.progress {
 	height: 0.6rem;
-  background-color: #fff;
-  
-  .bg-blue{
-    background-color: #2e96a5;
-  }
+  background-color: $bg-progress;
 }
 
-.card{
+.card {
   border-radius: 6px;
   border: none;
+  background-color: $bg-def;
+  color: $fg-def;
 }
 
 // styles for timeline
@@ -327,7 +292,7 @@ section{
         color: rgba(0,0,0,0.7);
       }
 
-      .date{
+      .date {
         display: inline-block;
         background-color: rgba(0,0,0,0.1);
         padding: 10px;
@@ -342,31 +307,21 @@ section{
   }
 }
 
-.pagination{
-  .page-item.active{
-    .page-link{
-      background-color: black;
-      border-color: black !important;
-      color: #fff !important;
-    }
-  }
-  .page-link{
-    border: none;
-    color: #000 !important;
-  }
-}
-
-.skill{
+.progressbar {
 	margin-bottom: 20px;
 }
 
-@media (max-width: 767px){
-	.sidebar {
+#contact {
+  background-color: $bg-contact;
+}
+
+@media (max-width: 767px) {
+    .sidebar {
     position: static;
     width: 100%;
     padding-left: 65px;
 	}
-	.main-content{
+	.main-content {
 		width: 100%;
     margin-left: 0%;
 	}
@@ -380,14 +335,14 @@ section{
       left: 0;
     }
 
-    .timeline-item{
+    .timeline-item {
       .timeline-content {
         width: 90%;
         float: right;
         text-align: left;
 
         &:before,
-        .right:before{
+        .right:before {
           left: 10%;
           margin-left: -6px;
           border-left: 0;
